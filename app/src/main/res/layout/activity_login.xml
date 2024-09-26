@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:background="#80000000"
+        android:background="@drawable/rounded_view"
         android:layout_marginHorizontal="25dp"
-        android:layout_marginVertical="150dp"
-        android:padding="10dp">
+        android:layout_marginVertical="250dp"
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/sign_in"
@@ -27,7 +27,7 @@
             android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
         />
 
         <EditText
@@ -35,8 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/sign_in"
-            android:layout_marginTop="35dp"
-            android:background="#30ffffff"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounded_textbox"
             android:drawableStart="@drawable/baseline_person_outline_24"
             android:drawablePadding="20dp"
             android:hint="@string/user_name"
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/user_name"
             android:layout_marginTop="14dp"
-            android:background="#30ffffff"
+            android:background="@drawable/rounded_textbox"
             android:drawableStart="@drawable/baseline_key_24"
             android:drawablePadding="20dp"
             android:hint="@string/password"
@@ -74,9 +74,19 @@
             android:layout_marginStart="105dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="105dp"
-            android:background="#FF0000"
+            android:background="@drawable/rounded_button"
             android:text="@string/sign_in"
             android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/forgot_password"
+            android:textColor="@color/forgot"
             android:textSize="20sp" />
 
     </RelativeLayout>
