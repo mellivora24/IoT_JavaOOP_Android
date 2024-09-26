@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SmartHome</string>
     <string name="sign_in">SIGN IN</string>
+    <string name="sign_up">SIGN UP</string>
     <string name="user_name">User name</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot password?</string>
