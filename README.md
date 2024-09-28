@@ -19,3 +19,8 @@ git add .
 git commit -m "<message rõ ràng>"
 git push
 ~~~
+
+# Link figma design của nhóm:
+https://www.figma.com/design/Kz02iKFKAKAJ2I0IFf1emn/SmartHome?node-id=0-1&t=xxtTOLojQWI6PLeZ-1
+
+🪶 <strong> Có ý kiến gì về design hay muốn thêm gì thì cứ nhắn vào nhóm messager! </strong>

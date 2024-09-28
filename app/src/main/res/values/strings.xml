@@ -5,4 +5,9 @@
     <string name="user_name">User name</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="register">Create a new account</string>
+    <string name="confirm_pass">Retype your password</string>
+    <string name="create_new_account">REGISTER</string>
+    <string name="switch_to_register_page">Don\'t have any account yet?</string>
+    <string name="switch_to_login_page">Already have account?</string>
 </resources>
