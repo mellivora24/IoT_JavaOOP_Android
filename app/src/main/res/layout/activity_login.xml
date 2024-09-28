@@ -91,6 +91,20 @@ tools:ignore="ExtraText">
         android:textColor="@color/forgot"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/switch_to_register_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/forgot_link"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:text="@string/switch_to_register_page"
+        android:clickable="true"
+        android:onClick="switchToRegisterPage"
+        android:textColor="@color/forgot"
+        android:textSize="20sp" />
+
 </RelativeLayout>
 
 </RelativeLayout>
