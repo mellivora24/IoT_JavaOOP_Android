@@ -3,36 +3,29 @@ package com.javaoop.smarthome;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class LoginActivity extends AppCompatActivity {
-
-
+public class ForgotActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_screen), (v, insets) -> {
+        setContentView(R.layout.activity_forgot);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.forgot_screen), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
     }
 
-    public void switchToRegisterPage(View view) {
-        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+    public void switchToLoginPage(View view) {
+        Intent intent = new Intent(ForgotActivity.this, LoginActivity.class);
         startActivity(intent);
-    }
-
-    public void switchToForgotPage(View view) {
-        Intent forgot = new Intent(LoginActivity.this , ForgotActivity.class);
-        startActivity(forgot);
     }
 }

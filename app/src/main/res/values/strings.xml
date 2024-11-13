@@ -1,13 +1,18 @@
 <resources>
     <string name="app_name">SmartHome</string>
-    <string name="sign_in">SIGN IN</string>
-    <string name="sign_up">SIGN UP</string>
-    <string name="user_name">User name</string>
-    <string name="password">Password</string>
-    <string name="forgot_password">Forgot password?</string>
-    <string name="register">Create a new account</string>
-    <string name="confirm_pass">Retype your password</string>
-    <string name="create_new_account">REGISTER</string>
-    <string name="switch_to_register_page">Don\'t have any account yet?</string>
-    <string name="switch_to_login_page">Already have account?</string>
+    <string name="sign_in">Đăng Nhập</string>
+    <string name="sign_up">Đăng Ký</string>
+    <string name="user_name">Tài Khoản</string>
+    <string name="password">Mật Khẩu</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="register">Tạo Tài Khoản Mới</string>
+    <string name="confirm_pass">Nhập Lại Mật Khẩu</string>
+    <string name="create_new_account">Đăng Ký</string>
+    <string name="switch_to_register_page">Chưa có tài khoản? Tạo ngay.</string>
+    <string name="switch_to_login_page">Đã có tài khoản?</string>
+    <string name="reset_your_password">Đặt Lại Mật Khẩu</string>
+    <string name="send_code_to_email">Chúng tôi sẽ gửi mã xác thực tới email của bạn, hãy nhập mã này để xác thực đó là bạn.</string>
+    <string name="verify">Xác Nhận</string>
+    <string name="back_to_login_page">Quay lại trang đăng nhập.</string>
+    <string name="verify_code">Mã Xác Thực</string>
 </resources>
