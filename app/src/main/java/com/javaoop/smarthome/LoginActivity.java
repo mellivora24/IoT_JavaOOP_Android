@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(username.getText().toString().equals("admin") && password.getText().toString().equals("admin")){
                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
-                    //Intent forgot = new Intent(LoginActivity.this , ForgotActivity.class);
-                    //startActivity(forgot);
+                    Intent toMenuScreen = new Intent(LoginActivity.this , MenuscreenActivity.class);
+                    startActivity(toMenuScreen);
                 }else if(username.getText().toString().equals("") || password.getText().toString().equals("")) {
                     Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu.", Toast.LENGTH_SHORT).show();
                 }else{

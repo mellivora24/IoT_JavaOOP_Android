@@ -38,6 +38,8 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
                 } else if (!comfirmpassword.getText().toString().equals(password.getText().toString())) {
                     Toast.makeText(RegisterActivity.this, "Mật khẩu chưa trùng khớp.", Toast.LENGTH_SHORT).show();
+                } else if (password.length() < 8) {
+                    Toast.makeText(RegisterActivity.this, "Mật khẩu tối thiểu 8 ký tự.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
