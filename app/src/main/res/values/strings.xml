@@ -15,4 +15,6 @@
     <string name="verify">Xác Nhận</string>
     <string name="back_to_login_page">Quay lại trang đăng nhập.</string>
     <string name="verify_code">Mã Xác Thực</string>
+    <string name="log_out">Đăng Xuất</string>
+    <string name="settings">Cài Đặt</string>
 </resources>
