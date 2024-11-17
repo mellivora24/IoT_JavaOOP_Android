@@ -15,7 +15,7 @@ tools:ignore="ExtraText">
     android:layout_centerInParent="true"
     android:background="@drawable/rounded_view"
     android:layout_marginHorizontal="25dp"
-    android:layout_marginVertical="250dp"
+    android:layout_marginVertical="200dp"
     android:padding="15dp">
 
     <TextView
@@ -43,7 +43,7 @@ tools:ignore="ExtraText">
         android:padding="10dp"
         android:paddingStart="20dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/light_grey"
         android:textSize="20sp"
         tools:ignore="RtlSymmetry" />
 
@@ -61,7 +61,7 @@ tools:ignore="ExtraText">
         android:padding="10dp"
         android:paddingStart="20dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/light_grey"
         android:textSize="20sp"
         tools:ignore="RtlSymmetry" />
 
@@ -69,12 +69,12 @@ tools:ignore="ExtraText">
         android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/password_input"
+        android:layout_below="@+id/forgot_link"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="105dp"
+        android:layout_marginStart="80dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="105dp"
+        android:layout_marginEnd="80dp"
         android:background="@drawable/rounded_button"
         android:text="@string/sign_in"
         android:textColor="@color/white"
@@ -84,25 +84,31 @@ tools:ignore="ExtraText">
         android:id="@+id/forgot_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_btn"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
+        android:layout_below="@+id/password_input"
+        android:layout_alignStart="@+id/password_input"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:clickable="true"
+        android:gravity="left"
+        android:onClick="switchToForgotPage"
         android:text="@string/forgot_password"
         android:textColor="@color/forgot"
-        android:textSize="20sp" />
+        android:textSize="18sp"
+        android:textStyle="italic"
+        />
 
     <TextView
         android:id="@+id/switch_to_register_page"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/forgot_link"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/login_btn"
+        android:layout_marginTop="20dp"
+        android:clickable="true"
         android:focusable="true"
         android:gravity="center"
-        android:text="@string/switch_to_register_page"
-        android:clickable="true"
         android:onClick="switchToRegisterPage"
-        android:textColor="@color/forgot"
+        android:text="@string/switch_to_register_page"
+        android:textColor="@color/green"
         android:textSize="20sp" />
 
 </RelativeLayout>
