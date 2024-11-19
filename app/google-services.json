@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "706597148014",
+    "project_id": "loginregistersmarthome",
+    "storage_bucket": "loginregistersmarthome.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706597148014:android:cc953e42dacd253a249d7f",
+        "android_client_info": {
+          "package_name": "com.javaoop.smarthome"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmxzMjTRuzv6SV33MxiP2Z2F0o-b2Sgfc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

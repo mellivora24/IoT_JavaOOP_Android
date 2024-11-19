@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class SettingsFragment extends Fragment {
@@ -31,6 +34,8 @@ public class SettingsFragment extends Fragment {
         btnlogout.setOnClickListener( v -> {
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
+            FirebaseAuth.getInstance().signOut();
+            Toast.makeText(getActivity().getApplicationContext(), "Đăng xuất thành công.", Toast.LENGTH_SHORT).show();
         });
         return view;
     }
