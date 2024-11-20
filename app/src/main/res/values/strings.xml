@@ -19,4 +19,6 @@
     <string name="settings">Cài Đặt</string>
     <string name="account_created">Tạo tài khoản mới thành công.</string>
     <string name="missing_info">Vui lòng nhập đầy đủ thông tin.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
