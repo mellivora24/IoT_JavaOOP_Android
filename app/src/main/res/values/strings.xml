@@ -19,4 +19,8 @@
     <string name="settings">Cài Đặt</string>
     <string name="account_created">Tạo tài khoản mới thành công.</string>
     <string name="missing_info">Vui lòng nhập đầy đủ thông tin.</string>
+    <string name="change_password">Đổi Mật Khẩu</string>
+    <string name="current_password">Mật khẩu hiện tại</string>
+    <string name="new_password">Mật khẩu mới</string>
+    <string name="changed">Đổi mật khẩu thành công.</string>
 </resources>

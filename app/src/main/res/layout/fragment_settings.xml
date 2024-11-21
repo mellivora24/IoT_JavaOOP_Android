@@ -59,13 +59,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/texttest"
+                android:id="@+id/change_password_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/button_background"
-                android:text="Test"
-                android:textSize="40sp" />
+                android:text="@string/change_password"
+                android:gravity="center"
+                android:textSize="30sp" />
         </LinearLayout>
     </ScrollView>
 
