@@ -14,6 +14,11 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class ChangePasswordActivity extends AppCompatActivity {
 
     @Override
@@ -30,6 +35,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         Button verifyButton = findViewById(R.id.verify_change_password_btn);
 
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,11 +47,33 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                 if (currentpass.isEmpty() || newpass.isEmpty() || confirmpass.isEmpty()){
                     Toast.makeText(ChangePasswordActivity.this, "Vui lòng nhập đầy đủ thông tin.", Toast.LENGTH_SHORT).show();
-                } else if (!newpass.equals(confirmpass)) {
+                }else if(newpass.length() < 8){
+                    Toast.makeText(ChangePasswordActivity.this, "Mật khẩu mới phải có ít nhất 8 ký tự.", Toast.LENGTH_SHORT).show();
+                }else if (!newpass.equals(confirmpass)) {
                     Toast.makeText(ChangePasswordActivity.this, "Mật khẩu mới chưa trùng khớp.", Toast.LENGTH_SHORT).show();
                 }else {
-                    Toast.makeText(ChangePasswordActivity.this, "Đổi mật khẩu thành công.", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if(user != null && user.getEmail() != null){
+                        AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), currentpass);
+
+                        user.reauthenticate(credential).addOnCompleteListener(task -> {
+                            if(task.isSuccessful()){
+                                user.updatePassword(newpass).addOnCompleteListener(updateTask -> {
+                                    if(updateTask.isSuccessful()){
+                                        Toast.makeText(ChangePasswordActivity.this, "Đổi mật khẩu thành công!", Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }else {
+                                        Toast.makeText(ChangePasswordActivity.this, "Đổi mật khẩu thất bại: " + updateTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }else {
+                                Toast.makeText(ChangePasswordActivity.this, "Mật khẩu hiện tại không đúng", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
+
+
             }
         });
 
