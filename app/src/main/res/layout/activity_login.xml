@@ -1,116 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/login_screen"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@drawable/app_background"
-tools:context=".LoginActivity"
-tools:ignore="ExtraText">
-
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_centerInParent="true"
-    android:background="@drawable/rounded_view"
-    android:layout_marginHorizontal="25dp"
-    android:layout_marginVertical="200dp"
-    android:padding="15dp">
+    android:background="@drawable/app_background"
+    tools:context=".LoginActivity"
+    tools:ignore="ExtraText">
 
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/sign_in"
-        android:textColor="@color/white"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:layout_marginTop="15dp"
-        />
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_view"
+        android:padding="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/username_input"
-        android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/login_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/sign_in"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/username_input"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="spread"
+            tools:layout_editor_absoluteX="14dp" />
+
+        <EditText
+            android:id="@+id/username_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/login_title"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/rounded_textbox"
+            android:drawableStart="@drawable/baseline_person_outline_24"
+            android:drawablePadding="20dp"
+            android:hint="@string/user_name"
+            android:padding="10dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/light_grey"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/password_input"
+            app:layout_constraintTop_toBottomOf="@+id/login_title"
+            tools:ignore="RtlSymmetry"
+            tools:layout_editor_absoluteX="14dp" />
+
+        <EditText
+            android:id="@+id/password_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_input"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/rounded_textbox"
+            android:drawableStart="@drawable/baseline_key_24"
+            android:drawablePadding="20dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/light_grey"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/forgot_link"
+            app:layout_constraintTop_toBottomOf="@+id/username_input"
+            tools:ignore="RtlSymmetry"
+            tools:layout_editor_absoluteX="14dp" />
+
+        <TextView
+            android:id="@+id/forgot_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/password_input"
+            android:layout_alignStart="@+id/password_input"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:gravity="left"
+            android:onClick="switchToForgotPage"
+            android:text="@string/forgot_password"
+            android:textColor="@color/forgot"
+            android:textSize="20sp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toTopOf="@+id/login_btn"
+            app:layout_constraintTop_toBottomOf="@+id/password_input"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/forgot_link"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_button"
+            android:text="@string/sign_in"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/switch_to_register_page"
+            app:layout_constraintTop_toBottomOf="@+id/forgot_link"
+            tools:layout_editor_absoluteX="94dp" />
+
+
+        <TextView
+            android:id="@+id/switch_to_register_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_btn"
+            android:layout_marginTop="20dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:onClick="switchToRegisterPage"
+            android:text="@string/switch_to_register_page"
+            android:textColor="@color/green"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login_btn"
+            tools:layout_editor_absoluteX="14dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/login_title"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/rounded_textbox"
-        android:drawableStart="@drawable/baseline_person_outline_24"
-        android:drawablePadding="20dp"
-        android:hint="@string/user_name"
-        android:padding="10dp"
-        android:paddingStart="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_grey"
-        android:textSize="20sp"
-        tools:ignore="RtlSymmetry" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
 
-    <EditText
-        android:id="@+id/password_input"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/username_input"
-        android:layout_marginTop="14dp"
-        android:background="@drawable/rounded_textbox"
-        android:drawableStart="@drawable/baseline_key_24"
-        android:drawablePadding="20dp"
-        android:hint="@string/password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:paddingStart="20dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_grey"
-        android:textSize="20sp"
-        tools:ignore="RtlSymmetry" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 
-    <Button
-        android:id="@+id/login_btn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/forgot_link"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="80dp"
-        android:background="@drawable/rounded_button"
-        android:text="@string/sign_in"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/forgot_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password_input"
-        android:layout_alignStart="@+id/password_input"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        android:gravity="left"
-        android:onClick="switchToForgotPage"
-        android:text="@string/forgot_password"
-        android:textColor="@color/forgot"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        />
-
-    <TextView
-        android:id="@+id/switch_to_register_page"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/login_btn"
-        android:layout_marginTop="20dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:onClick="switchToRegisterPage"
-        android:text="@string/switch_to_register_page"
-        android:textColor="@color/green"
-        android:textSize="20sp" />
-
-</RelativeLayout>
-
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

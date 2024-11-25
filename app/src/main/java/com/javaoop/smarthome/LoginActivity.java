@@ -90,4 +90,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent forgot = new Intent(LoginActivity.this , ForgotActivity.class);
         startActivity(forgot);
     }
+
+
 }
