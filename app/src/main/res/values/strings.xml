@@ -23,4 +23,5 @@
     <string name="current_password">Mật khẩu hiện tại</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="changed">Đổi mật khẩu thành công.</string>
+
 </resources>

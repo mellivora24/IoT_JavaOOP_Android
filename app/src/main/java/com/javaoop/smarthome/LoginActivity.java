@@ -38,31 +38,35 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.password_input);
         loginButton = findViewById(R.id.login_btn);
 
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(LoginActivity.this, MenuscreenActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email , pass;
+                String email, pass;
                 email = String.valueOf(username.getText());
                 pass = String.valueOf(password.getText());
-                if(email.isEmpty() || pass.toString().isEmpty()) {
+                if (email.isEmpty() || pass.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ tài khoản và mật khẩu.", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 mAuth.signInWithEmailAndPassword(email, pass)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MenuscreenActivity.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại.",
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, "Đăng nhập thất bại.", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

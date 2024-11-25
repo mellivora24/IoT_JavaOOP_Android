@@ -13,19 +13,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
-
-            <Button
-                android:id="@+id/createButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Thêm Thiết Bị"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="16dp"/>
         </LinearLayout>
-
-
     </ScrollView>
 
-
+    <Button
+        android:id="@+id/createButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm Thiết Bị"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"/>
 </RelativeLayout>
