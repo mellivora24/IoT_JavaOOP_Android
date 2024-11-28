@@ -2,46 +2,16 @@ package com.javaoop.smarthome;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
+import com.javaoop.smarthome.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
 
-public class DeviceViewModel extends ViewModel {
-    private final MutableLiveData<List<Device>> devices = new MutableLiveData<>(new ArrayList<>());
+public class JsonReader {
 
-    public LiveData<List<Device>> getDevices() {
-        return devices;
-    }
-
-    public MutableLiveData<List<Device>> getMutableDevices() {
-        return devices;
-    }
-
-    public void addDevice(Device device) {
-        List<Device> currentDevices = new ArrayList<>(devices.getValue());
-        currentDevices.add(device);
-        devices.setValue(currentDevices);
-    }
-
-    public void removeDevice(Device device) {
-        List<Device> currentDevices = new ArrayList<>(devices.getValue());
-        currentDevices.remove(device);
-        devices.setValue(currentDevices);
-    }
-
-    public void setDevices(List<Device> updatedDevices) {
-        devices.setValue(updatedDevices);
-    }
-
-    public void readJson(Context context) {
+    public static void readJson(Context context) {
         try {
             // Đọc file từ res/raw
             InputStream inputStream = context.getResources().openRawResource(R.raw.sample);
@@ -69,16 +39,18 @@ public class DeviceViewModel extends ViewModel {
                 int port = device.getInt("port");
                 String deviceType = device.getString("deviceType");
                 String deviceName = device.getString("deviceName");
-                String deviceData = device.getString("deviceData"); // Có thể là boolean hoặc số
+                Object deviceData = device.get("deviceData"); // Có thể là boolean hoặc số
 
                 // In thông tin ra log (hoặc lưu vào biến tùy ý)
-                Device device1 = new Device(String.valueOf(i+1), String.valueOf(port), id, deviceData, deviceType, deviceName );
-                addDevice(device1);
+                System.out.println("Device ID: " + id);
+                System.out.println("Port: " + port);
+                System.out.println("Device Type: " + deviceType);
+                System.out.println("Device Name: " + deviceName);
+                System.out.println("Device Data: " + deviceData);
                 //addevice
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }

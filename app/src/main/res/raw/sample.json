@@ -3,14 +3,14 @@
     {
       "id": "123456789",
       "port": 3,
-      "deviceType": "digitalDevice",
+      "deviceType": "Digital",
       "deviceName": "LED 1",
       "deviceData": true
     },
     {
       "id": "987654321",
       "port": 6,
-      "deviceType": "analogDevice",
+      "deviceType": "Analog",
       "deviceName": "GAS sensor",
       "deviceData": 15
     }

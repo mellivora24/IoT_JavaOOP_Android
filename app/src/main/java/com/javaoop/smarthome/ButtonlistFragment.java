@@ -34,7 +34,7 @@ public class ButtonlistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_buttonlist, container, false);
         buttonContainer = view.findViewById(R.id.buttonContainer);
         deviceViewModel = new ViewModelProvider(requireActivity()).get(DeviceViewModel.class);
-
+        deviceViewModel.readJson(getContext());
         deviceViewModel.getDevices().observe(getViewLifecycleOwner(), devices -> {
             buttonContainer.removeAllViews();
             for (Device device : devices) {
