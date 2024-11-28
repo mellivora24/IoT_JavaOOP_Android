@@ -14,9 +14,23 @@ public class DeviceViewModel extends ViewModel {
         return devices;
     }
 
+    public MutableLiveData<List<Device>> getMutableDevices() {
+        return devices;
+    }
+
     public void addDevice(Device device) {
-        List<Device> currentDevices = devices.getValue();
+        List<Device> currentDevices = new ArrayList<>(devices.getValue());
         currentDevices.add(device);
         devices.setValue(currentDevices);
+    }
+
+    public void removeDevice(Device device) {
+        List<Device> currentDevices = new ArrayList<>(devices.getValue());
+        currentDevices.remove(device);
+        devices.setValue(currentDevices);
+    }
+
+    public void setDevices(List<Device> updatedDevices) {
+        devices.setValue(updatedDevices);
     }
 }
