@@ -29,7 +29,6 @@ public class AddDeviceFragment extends DialogFragment {
         Spinner deviceTypeSpinner = view.findViewById(R.id.deviceTypeSpinner);
         EditText portInput = view.findViewById(R.id.portInput);
         EditText deviceIdInput = view.findViewById(R.id.deviceIdInput);
-        EditText deviceDataInput = view.findViewById(R.id.deviceDataInput);
         Button addDeviceButton = view.findViewById(R.id.addDeviceButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
@@ -40,34 +39,22 @@ public class AddDeviceFragment extends DialogFragment {
             String deviceType = deviceTypeSpinner.getSelectedItem().toString();
             String port = portInput.getText().toString().trim();
             String deviceId = deviceIdInput.getText().toString().trim();
-            String deviceData = deviceDataInput.getText().toString().trim();
+            String deviceData = "";
 
-            if (!deviceName.isEmpty() && !port.isEmpty() && !deviceId.isEmpty() && !deviceData.isEmpty()) {
+            if (!deviceName.isEmpty() && !port.isEmpty() && !deviceId.isEmpty()) {
                 String id = UUID.randomUUID().toString();
 
-                if ("Analog".equals(deviceType) && (deviceData.equals("true") || deviceData.equals("false"))) {
-                    Device newDevice = new Device(id, port, deviceId, deviceData, deviceType, deviceName);
-                    deviceViewModel.addDevice(newDevice);
-                    Toast.makeText(getActivity(), "Đã thêm thiết bị: " + deviceName, Toast.LENGTH_SHORT).show();
+                if ("Digital".equals(deviceType)) {
+                    Device newDevice = new Device(id, port, deviceId, deviceData, "digitalDevice", deviceName);
+                    deviceViewModel.addNewDevice(newDevice, getContext());
                     dismiss();
-                } else if ("Digital".equals(deviceType)) {
-                    try {
-                        int dataValue = Integer.parseInt(deviceData);
-                        if (dataValue >= 0 && dataValue <= 100) {
-                            Device newDevice = new Device(id, port, deviceId, deviceData, deviceType, deviceName);
-                            deviceViewModel.addDevice(newDevice);
-                            Toast.makeText(getActivity(), "Đã thêm thiết bị: " + deviceName, Toast.LENGTH_SHORT).show();
-                            dismiss();
-                        } else {
-                            Toast.makeText(getActivity(), "Dữ liệu cho thiết bị Analog phải từ 0-100", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (NumberFormatException e) {
-                        Toast.makeText(getActivity(), "Dữ liệu cho thiết bị Analog phải là một số", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getActivity(), "Vui lòng nhập dữ liệu hợp lệ", Toast.LENGTH_SHORT).show();
+                } else if ("Analog".equals(deviceType)) {
+                    Device newDevice = new Device(id, port, deviceId, deviceData, "analogDevice", deviceName);
+                    deviceViewModel.addNewDevice(newDevice,getContext());
+                    dismiss();
                 }
-            } else {
+            }
+            else {
                 Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             }
         });

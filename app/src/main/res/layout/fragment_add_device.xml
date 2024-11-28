@@ -34,14 +34,6 @@
             android:layout_marginTop="12dp" />
 
         <EditText
-            android:id="@+id/portInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Cổng kết nối"
-            android:layout_marginTop="12dp"
-            android:inputType="number" />
-
-        <EditText
             android:id="@+id/deviceIdInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,13 +42,13 @@
             android:inputType="text" />
 
         <EditText
-            android:id="@+id/deviceDataInput"
+            android:id="@+id/portInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Dữ liệu (true/false hoặc 0-100)"
+            android:hint="Cổng kết nối"
             android:layout_marginTop="12dp"
-            android:inputType="text" />
-
+            android:inputType="number" />
+        
         <Button
             android:id="@+id/addDeviceButton"
             android:layout_width="match_parent"

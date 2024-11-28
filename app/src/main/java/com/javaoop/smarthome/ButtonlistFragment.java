@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class ButtonlistFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_buttonlist, container, false);
         buttonContainer = view.findViewById(R.id.buttonContainer);
         deviceViewModel = new ViewModelProvider(requireActivity()).get(DeviceViewModel.class);
+        deviceViewModel.removeAllDevices();
         deviceViewModel.readJson(getContext());
         deviceViewModel.getDevices().observe(getViewLifecycleOwner(), devices -> {
             buttonContainer.removeAllViews();
@@ -60,18 +63,20 @@ public class ButtonlistFragment extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
 
+
         String displayText;
 
-        if ("Analog".equals(device.getDeviceType())) {
+        if ("digitalDevice".equals(device.getDeviceType())) {
             displayText = device.getDeviceName();
             newButton.setText(displayText);
             newButton.setTextColor(Color.BLACK);
+            newButton.setTextSize(20);
             if(device.getDeviceData().equals("true")){
                 newButton.setBackgroundResource(R.drawable.button_background_green);
             }else {
                 newButton.setBackgroundResource(R.drawable.button_background_red);
             }
-        } else if ("Digital".equals(device.getDeviceType())) {
+        } else if ("analogDevice".equals(device.getDeviceType())) {
             displayText = device.getDeviceName() + ": " + device.getDeviceData() + "%";
             newButton.setText(displayText);
             newButton.setTextColor(Color.BLACK);
@@ -131,5 +136,6 @@ public class ButtonlistFragment extends Fragment {
             Toast.makeText(getActivity(), "Ngắt kết nối thiết bị: " + device.getDeviceName(), Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
+
     }
 }

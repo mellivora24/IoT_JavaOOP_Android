@@ -1,12 +1,21 @@
 package com.javaoop.smarthome;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -81,4 +90,51 @@ public class DeviceViewModel extends ViewModel {
         }
     }
 
+    public void removeAllDevices() {
+        devices.setValue(new ArrayList<>());
+    }
+
+    public void addNewDevice(Device device, Context context) {
+
+        String url = "https://api.example.com/add_device"; // Thay đổi URL theo API của bạn
+
+        // Tạo JSON object cho dữ liệu thiết bị
+        JSONObject deviceData = new JSONObject();
+        try {
+
+            deviceData.put("id", device.getId());
+            deviceData.put("port", device.getPort());
+            deviceData.put("deviceID",device.getDeviceId());
+            deviceData.put("deviceName", device.getDeviceName());
+            deviceData.put("deviceType", device.getDeviceType());
+            deviceData.put("deviceData", device.getDeviceType().equals("digitalDevice")? "0" : "false");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Gọi API
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, url, deviceData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Xử lý phản hồi từ API
+                        Toast.makeText(context, "Thêm thiết bị thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi
+                        Toast.makeText(context, "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        // Thêm yêu cầu vào hàng đợi
+        requestQueue.add(jsonObjectRequest);
+    }
 }
