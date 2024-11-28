@@ -63,6 +63,15 @@ public class ButtonlistFragment extends Fragment {
                 LinearLayout.LayoutParams.WRAP_CONTENT
         ));
 
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+
+        params.setMargins(16, 16, 16, 16);
+
+        newButton.setLayoutParams(params);
+
 
         String displayText;
 
