@@ -1,0 +1,8 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/white"/>
+    <corners android:radius="40dp"/>
+    <stroke
+        android:width="3dp"
+        android:color="#00FF00" />
+    <padding android:left="10dp" android:right="10dp" android:top="5dp" android:bottom="5dp"/> <!-- Độ padding cho text bên trong button -->
+</shape>

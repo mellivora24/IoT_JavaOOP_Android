@@ -1,7 +1,10 @@
 package com.javaoop.smarthome;
 
+import static com.javaoop.smarthome.R.drawable.top_bar_background;
+
 import android.app.AlertDialog;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,14 +62,21 @@ public class ButtonlistFragment extends Fragment {
 
         String displayText;
 
-        if ("Digital".equals(device.getDeviceType())) {
+        if ("Analog".equals(device.getDeviceType())) {
             displayText = device.getDeviceName();
             newButton.setText(displayText);
-            newButton.setTextColor("true".equals(device.getDeviceData()) ? Color.GREEN : Color.WHITE);
-        } else if ("Analog".equals(device.getDeviceType())) {
+            newButton.setTextColor(Color.BLACK);
+            if(device.getDeviceData().equals("true")){
+                newButton.setBackgroundResource(R.drawable.button_background_green);
+            }else {
+                newButton.setBackgroundResource(R.drawable.button_background_red);
+            }
+        } else if ("Digital".equals(device.getDeviceType())) {
             displayText = device.getDeviceName() + ": " + device.getDeviceData() + "%";
             newButton.setText(displayText);
-            newButton.setTextColor(Color.GREEN);
+            newButton.setTextColor(Color.BLACK);
+            newButton.setBackgroundResource(R.drawable.button_background);
+            newButton.setTextSize(20);
         }
 
         newButton.setOnClickListener(v -> showDeviceInfoDialog(device));

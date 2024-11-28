@@ -45,12 +45,12 @@ public class AddDeviceFragment extends DialogFragment {
             if (!deviceName.isEmpty() && !port.isEmpty() && !deviceId.isEmpty() && !deviceData.isEmpty()) {
                 String id = UUID.randomUUID().toString();
 
-                if ("Digital".equals(deviceType) && (deviceData.equals("true") || deviceData.equals("false"))) {
+                if ("Analog".equals(deviceType) && (deviceData.equals("true") || deviceData.equals("false"))) {
                     Device newDevice = new Device(id, port, deviceId, deviceData, deviceType, deviceName);
                     deviceViewModel.addDevice(newDevice);
                     Toast.makeText(getActivity(), "Đã thêm thiết bị: " + deviceName, Toast.LENGTH_SHORT).show();
                     dismiss();
-                } else if ("Analog".equals(deviceType)) {
+                } else if ("Digital".equals(deviceType)) {
                     try {
                         int dataValue = Integer.parseInt(deviceData);
                         if (dataValue >= 0 && dataValue <= 100) {
