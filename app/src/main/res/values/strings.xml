@@ -11,7 +11,7 @@
     <string name="switch_to_register_page">Chưa có tài khoản? Tạo ngay.</string>
     <string name="switch_to_login_page">Đã có tài khoản?</string>
     <string name="reset_your_password">Đặt Lại Mật Khẩu</string>
-    <string name="send_code_to_email">Chúng tôi sẽ gửi mã xác thực tới email của bạn, hãy nhập mã này để xác thực đó là bạn.</string>
+    <string name="send_code_to_email">Chúng tôi sẽ gửi yêu cầu đặt lại mật khẩu đến email của bạn.</string>
     <string name="verify">Xác Nhận</string>
     <string name="back_to_login_page">Quay lại trang đăng nhập.</string>
     <string name="verify_code">Mã Xác Thực</string>

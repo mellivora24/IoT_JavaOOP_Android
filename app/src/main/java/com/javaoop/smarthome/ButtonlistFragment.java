@@ -33,8 +33,7 @@ public class ButtonlistFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_buttonlist, container, false);
-        buttonContainer = view.findViewById(R.id.buttonContainer);
+
         deviceViewModel = new ViewModelProvider(requireActivity()).get(DeviceViewModel.class);
         deviceViewModel.removeAllDevices();
         deviceViewModel.fetchDataFromAPI(getContext());
@@ -44,7 +43,8 @@ public class ButtonlistFragment extends Fragment {
                 createButton(device);
             }
         });
-
+        View view = inflater.inflate(R.layout.fragment_buttonlist, container, false);
+        buttonContainer = view.findViewById(R.id.buttonContainer);
         Button createButton = view.findViewById(R.id.createButton);
         createButton.setOnClickListener(v -> {
             AddDeviceFragment addDeviceFragment = new AddDeviceFragment();

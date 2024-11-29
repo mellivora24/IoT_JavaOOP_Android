@@ -47,13 +47,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getInfo(getContext());
-        loadButtonCreatorFragment();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getInfo(getContext());
+        loadButtonCreatorFragment();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         myTextView = view.findViewById(R.id.welcome_message);
         Users user = UserSingleton.getInstance().getUser();

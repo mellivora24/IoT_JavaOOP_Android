@@ -53,47 +53,6 @@ public class DeviceViewModel extends ViewModel {
         devices.setValue(updatedDevices);
     }
 
-    public void readJson(Context context) {
-        try {
-            // Đọc file từ res/raw
-            InputStream inputStream = context.getResources().openRawResource(R.raw.sample);
-            byte[] buffer = new byte[inputStream.available()];
-            inputStream.read(buffer);
-            inputStream.close();
-
-            // Chuyển đổi dữ liệu thành chuỗi JSON
-            String json = new String(buffer, StandardCharsets.UTF_8);
-
-            // Parse chuỗi JSON
-            JSONObject jsonObject = new JSONObject(json);
-
-            // Lấy dữ liệu từ các trường trong JSON
-            String status = jsonObject.getString("status");
-            String message = jsonObject.getString("message");
-
-            // Lấy mảng "data"
-            JSONArray dataArray = jsonObject.getJSONArray("data");
-
-            // Lặp qua từng phần tử trong mảng
-            for (int i = 0; i < dataArray.length(); i++) {
-                JSONObject device = dataArray.getJSONObject(i);
-                String id = device.getString("id");
-                int port = device.getInt("port");
-                String deviceType = device.getString("deviceType");
-                String deviceName = device.getString("deviceName");
-                String deviceData = device.getString("deviceData"); // Có thể là boolean hoặc số
-
-                // In thông tin ra log (hoặc lưu vào biến tùy ý)
-
-                //adddevice
-                Device device1 = new Device(String.valueOf(i+1), String.valueOf(port), id, deviceData, deviceType, deviceName );
-                addDevice(device1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void fetchDataFromAPI(Context context) {
         Users user = UserSingleton.getInstance().getUser();
         String uid = user.getUid();
@@ -132,10 +91,11 @@ public class DeviceViewModel extends ViewModel {
                                 String deviceName = device.optString("deviceName", "Unnamed");
 
                                 // Tạo đối tượng Device
-                                Device device1 = new Device(String.valueOf(i+1),"",deviceID,deviceData,deviceType,deviceName);
+                                Device device1 = new Device(String.valueOf(i+1),devicePort,deviceID,deviceData,deviceType,deviceName);
 
                                 // Thêm vào danh sách
                                 addDevice(device1);
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -188,7 +148,6 @@ public class DeviceViewModel extends ViewModel {
                     public void onResponse(JSONObject response) {
                         // Xử lý phản hồi từ API
                         Toast.makeText(context, "Thêm thiết bị thành công!", Toast.LENGTH_SHORT).show();
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -227,6 +186,7 @@ public class DeviceViewModel extends ViewModel {
                             if (success) {
                                 Log.d("DeleteDevice", "Success: " + message);
                                 // Có thể cập nhật UI hoặc danh sách sau khi xóa thành công
+                                Toast.makeText(context, "Xóa thiết bị thành công.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Log.e("DeleteDevice", "Failed: " + message);
                             }
