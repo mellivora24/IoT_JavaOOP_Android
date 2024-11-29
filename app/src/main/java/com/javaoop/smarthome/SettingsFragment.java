@@ -31,9 +31,15 @@ public class SettingsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         TextView btnlogout = view.findViewById(R.id.demologout);
         TextView btlchangepassword = view.findViewById(R.id.change_password_button);
+        TextView btnuserinfo = view.findViewById(R.id.user_info_button);
 
         btlchangepassword.setOnClickListener( v -> {
             Intent intent = new Intent(getActivity(), ChangePasswordActivity.class);
+            startActivity(intent);
+        });
+
+        btnuserinfo.setOnClickListener( v -> {
+            Intent intent = new Intent(getActivity(), UserInfoActivity.class);
             startActivity(intent);
         });
 

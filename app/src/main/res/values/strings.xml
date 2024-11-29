@@ -23,5 +23,9 @@
     <string name="current_password">Mật khẩu hiện tại</string>
     <string name="new_password">Mật khẩu mới</string>
     <string name="changed">Đổi mật khẩu thành công.</string>
+    <string name="user_info">Thông Tin Người Dùng</string>
+    <string name="user_nameinfo">Họ Tên</string>
+    <string name="user_email">Email</string>
+    <string name="user_phonenumber">Số Điện Thoại</string>
 
 </resources>

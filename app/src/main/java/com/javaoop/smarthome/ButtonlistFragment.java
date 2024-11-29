@@ -37,7 +37,7 @@ public class ButtonlistFragment extends Fragment {
         buttonContainer = view.findViewById(R.id.buttonContainer);
         deviceViewModel = new ViewModelProvider(requireActivity()).get(DeviceViewModel.class);
         deviceViewModel.removeAllDevices();
-        deviceViewModel.readJson(getContext());
+        deviceViewModel.fetchDataFromAPI(getContext());
         deviceViewModel.getDevices().observe(getViewLifecycleOwner(), devices -> {
             buttonContainer.removeAllViews();
             for (Device device : devices) {
@@ -80,7 +80,7 @@ public class ButtonlistFragment extends Fragment {
             newButton.setText(displayText);
             newButton.setTextColor(Color.BLACK);
             newButton.setTextSize(20);
-            if(device.getDeviceData().equals("true")){
+            if(device.getDeviceData().equals("on")){
                 newButton.setBackgroundResource(R.drawable.button_background_green);
             }else {
                 newButton.setBackgroundResource(R.drawable.button_background_red);
@@ -126,11 +126,11 @@ public class ButtonlistFragment extends Fragment {
             String newName = editNameInput.getText().toString().trim();
             if (!newName.isEmpty()) {
                 device.setDeviceName(newName);
-
+                deviceViewModel.updateDeviceInfo(device,getContext());
                 List<Device> updatedDevices = new ArrayList<>(deviceViewModel.getDevices().getValue());
                 deviceViewModel.getMutableDevices().setValue(updatedDevices);
 
-                Toast.makeText(getActivity(), "Cập nhật tên thiết bị thành công", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Cập nhật tên thiết bị thành công", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             } else {
                 Toast.makeText(getActivity(), "Tên thiết bị không được để trống", Toast.LENGTH_SHORT).show();
@@ -138,11 +138,12 @@ public class ButtonlistFragment extends Fragment {
         });
 
         disconnectButton.setOnClickListener(v -> {
+            deviceViewModel.deleteDevice(device, getContext());
             List<Device> updatedDevices = new ArrayList<>(deviceViewModel.getDevices().getValue());
             updatedDevices.remove(device);
             deviceViewModel.getMutableDevices().setValue(updatedDevices);
 
-            Toast.makeText(getActivity(), "Ngắt kết nối thiết bị: " + device.getDeviceName(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), "Ngắt kết nối thiết bị: " + device.getDeviceName(), Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 

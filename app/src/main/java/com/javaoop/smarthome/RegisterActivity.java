@@ -1,5 +1,6 @@
 package com.javaoop.smarthome;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,12 +16,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
     EditText newemail;
@@ -77,8 +87,8 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Đăng ký thành công.",
-                                            Toast.LENGTH_SHORT).show();
+                                    createUser(email, RegisterActivity.this);
+                                    //Toast.makeText(RegisterActivity.this, "Đăng ký thành công.",Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                     startActivity(intent);
 
@@ -104,5 +114,43 @@ public class RegisterActivity extends AppCompatActivity {
     public void switchToLoginPage(View view) {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+
+    private void createUser(String email, Context context) {
+        String url = "http://192.168.0.103:8080/users"; // Thay đổi URL theo API của bạn
+
+        // Tạo JSON object cho dữ liệu người dùng
+        JSONObject userData = new JSONObject();
+        try {
+            userData.put("phone", "");
+            userData.put("name", "");
+            userData.put("email", email);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Gọi API
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.POST, url, userData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Xử lý phản hồi từ API
+                        Toast.makeText(context, "Tạo người dùng thành công!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi
+                        Toast.makeText(context, "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        // Thêm yêu cầu vào hàng đợi
+        requestQueue.add(jsonObjectRequest);
     }
 }

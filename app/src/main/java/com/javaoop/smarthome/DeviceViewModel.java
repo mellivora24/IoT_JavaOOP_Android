@@ -1,6 +1,9 @@
 package com.javaoop.smarthome;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -81,13 +84,74 @@ public class DeviceViewModel extends ViewModel {
                 String deviceData = device.getString("deviceData"); // Có thể là boolean hoặc số
 
                 // In thông tin ra log (hoặc lưu vào biến tùy ý)
+
+                //adddevice
                 Device device1 = new Device(String.valueOf(i+1), String.valueOf(port), id, deviceData, deviceType, deviceName );
                 addDevice(device1);
-                //addevice
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void fetchDataFromAPI(Context context) {
+        Users user = UserSingleton.getInstance().getUser();
+        String uid = user.getUid();
+        // Tạo hàng đợi Volley
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        String URL = "http://192.168.0.103:8080/users/" + uid + "/devices";
+
+        // Gửi yêu cầu GET
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Kiểm tra trạng thái API trả về
+                            boolean success = response.getBoolean("success");
+                            String message = response.getString("message");
+
+                            Log.d(TAG, "Success: " + success);
+                            Log.d(TAG, "Message: " + message);
+
+                            // Lấy mảng "data"
+                            JSONArray dataArray = response.getJSONArray("data");
+
+                            // Lặp qua từng phần tử trong mảng
+                            for (int i = 0; i < dataArray.length(); i++) {
+                                JSONObject device = dataArray.getJSONObject(i);
+
+                                // Lấy thông tin từ JSON
+                                String deviceID = device.getString("deviceID");
+                                String deviceType = device.getString("deviceType");
+                                String deviceData = device.getString("deviceData");
+                                String devicePort = device.optString("devicePort", "N/A");
+                                String deviceName = device.optString("deviceName", "Unnamed");
+
+                                // Tạo đối tượng Device
+                                Device device1 = new Device(String.valueOf(i+1),"",deviceID,deviceData,deviceType,deviceName);
+
+                                // Thêm vào danh sách
+                                addDevice(device1);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e(TAG, "JSON Parsing Error: " + e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(TAG, "Volley Error: " + error.getMessage());
+                    }
+                }
+        );
+        // Thêm yêu cầu vào hàng đợi
+        requestQueue.add(jsonObjectRequest);
     }
 
     public void removeAllDevices() {
@@ -95,8 +159,9 @@ public class DeviceViewModel extends ViewModel {
     }
 
     public void addNewDevice(Device device, Context context) {
-
-        String url = "https://api.example.com/add_device"; // Thay đổi URL theo API của bạn
+        Users user = UserSingleton.getInstance().getUser();
+        String uid = user.getUid();
+        String url = "http://192.168.0.103:8080/users/" + uid + "/devices"; // Thay đổi URL theo API của bạn
 
         // Tạo JSON object cho dữ liệu thiết bị
         JSONObject deviceData = new JSONObject();
@@ -107,7 +172,7 @@ public class DeviceViewModel extends ViewModel {
             deviceData.put("deviceID",device.getDeviceId());
             deviceData.put("deviceName", device.getDeviceName());
             deviceData.put("deviceType", device.getDeviceType());
-            deviceData.put("deviceData", device.getDeviceType().equals("digitalDevice")? "0" : "false");
+            deviceData.put("deviceData", device.getDeviceType().equals("digitalDevice")? "false" : "0");
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -123,6 +188,91 @@ public class DeviceViewModel extends ViewModel {
                     public void onResponse(JSONObject response) {
                         // Xử lý phản hồi từ API
                         Toast.makeText(context, "Thêm thiết bị thành công!", Toast.LENGTH_SHORT).show();
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi
+                        Toast.makeText(context, "Lỗi: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        // Thêm yêu cầu vào hàng đợi
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void deleteDevice(Device device, Context context) {
+        Users user = UserSingleton.getInstance().getUser();
+        String uid = user.getUid();
+        // Tạo URL với deviceID
+        String deleteUrl = "http://192.168.0.103:8080/users/" + uid + "/devices/" + device.getDeviceId();
+        // Tạo hàng đợi Volley
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        // Gửi yêu cầu DELETE
+        JsonObjectRequest deleteRequest = new JsonObjectRequest(
+                Request.Method.DELETE,
+                deleteUrl,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Xử lý phản hồi từ API
+                            boolean success = response.getBoolean("success");
+                            String message = response.getString("message");
+
+                            if (success) {
+                                Log.d("DeleteDevice", "Success: " + message);
+                                // Có thể cập nhật UI hoặc danh sách sau khi xóa thành công
+                            } else {
+                                Log.e("DeleteDevice", "Failed: " + message);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("DeleteDevice", "JSON Parsing Error: " + e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("DeleteDevice", "Volley Error: " + error.getMessage());
+                    }
+                }
+        );
+
+        // Thêm yêu cầu vào hàng đợi
+        requestQueue.add(deleteRequest);
+    }
+
+    public void updateDeviceInfo(Device device,Context context) {
+        Users user = UserSingleton.getInstance().getUser();
+        String uid = user.getUid();
+        String url = "http://192.168.0.103:8080/users/" + uid + "/devices/" + device.getDeviceId(); // Thay đổi URL theo API của bạn
+
+        // Tạo JSON object cho dữ liệu thiết bị
+        JSONObject deviceData = new JSONObject();
+        try {
+            deviceData.put("deviceID", device.getDeviceId()); // ID của thiết bị cần cập nhật
+            deviceData.put("deviceName", device.getDeviceName());
+            deviceData.put("deviceType", device.getDeviceType());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Gọi API
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                Request.Method.PUT, url, deviceData,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Xử lý phản hồi từ API
+                        Toast.makeText(context, "Cập nhật thiết bị thành công!", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -137,4 +287,6 @@ public class DeviceViewModel extends ViewModel {
         // Thêm yêu cầu vào hàng đợi
         requestQueue.add(jsonObjectRequest);
     }
+
+
 }
