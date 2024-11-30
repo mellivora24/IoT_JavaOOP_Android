@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import java.util.UUID;
+
 public class AddDeviceFragment extends DialogFragment {
 
     private DeviceViewModel deviceViewModel;
@@ -26,6 +28,7 @@ public class AddDeviceFragment extends DialogFragment {
         EditText deviceNameInput = view.findViewById(R.id.deviceNameInput);
         Spinner deviceTypeSpinner = view.findViewById(R.id.deviceTypeSpinner);
         EditText portInput = view.findViewById(R.id.portInput);
+        EditText deviceIdInput = view.findViewById(R.id.deviceIdInput);
         Button addDeviceButton = view.findViewById(R.id.addDeviceButton);
         Button cancelButton = view.findViewById(R.id.cancelButton);
 
@@ -35,13 +38,23 @@ public class AddDeviceFragment extends DialogFragment {
             String deviceName = deviceNameInput.getText().toString().trim();
             String deviceType = deviceTypeSpinner.getSelectedItem().toString();
             String port = portInput.getText().toString().trim();
+            String deviceId = deviceIdInput.getText().toString().trim();
+            String deviceData = "";
 
-            if (!deviceName.isEmpty() && !port.isEmpty()) {
-                Device newDevice = new Device(deviceName, deviceType, port);
-                deviceViewModel.addDevice(newDevice);
-                Toast.makeText(getActivity(), "Đã thêm thiết bị: " + deviceName, Toast.LENGTH_SHORT).show();
-                dismiss();
-            } else {
+            if (!deviceName.isEmpty() && !port.isEmpty() && !deviceId.isEmpty()) {
+                String id = UUID.randomUUID().toString();
+
+                if ("Digital".equals(deviceType)) {
+                    Device newDevice = new Device(id, port, deviceId, deviceData, "digitalDevice", deviceName);
+                    deviceViewModel.addNewDevice(newDevice, getContext());
+                    dismiss();
+                } else if ("Analog".equals(deviceType)) {
+                    Device newDevice = new Device(id, port, deviceId, deviceData, "analogDevice", deviceName);
+                    deviceViewModel.addNewDevice(newDevice,getContext());
+                    dismiss();
+                }
+            }
+            else {
                 Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
             }
         });

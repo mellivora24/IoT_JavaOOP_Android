@@ -43,7 +43,7 @@
             android:background="@drawable/rounded_textbox"
             android:drawableStart="@drawable/baseline_person_outline_24"
             android:drawablePadding="20dp"
-            android:hint="@string/user_name"
+            android:hint="@string/user_email"
             android:padding="10dp"
             android:paddingStart="20dp"
             android:textColor="@color/white"

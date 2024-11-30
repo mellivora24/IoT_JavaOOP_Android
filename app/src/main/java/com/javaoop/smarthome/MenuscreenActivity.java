@@ -20,16 +20,12 @@ public class MenuscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
-
         binding = ActivityMenuscreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         replaceFragment(new HomeFragment());
-
         binding.bottomBar.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.hometab){
                 replaceFragment(new HomeFragment());
-            } else if(item.getItemId() == R.id.notificationstab){
-                replaceFragment(new NotificationsFragment());
             }else if(item.getItemId() == R.id.settingstab){
                 replaceFragment(new SettingsFragment());
             }

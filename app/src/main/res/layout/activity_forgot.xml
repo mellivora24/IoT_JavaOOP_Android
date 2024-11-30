@@ -43,7 +43,7 @@
             android:background="@drawable/rounded_textbox"
             android:drawableStart="@drawable/baseline_person_outline_24"
             android:drawablePadding="20dp"
-            android:hint="@string/user_name"
+            android:hint="@string/user_email"
             android:padding="10dp"
             android:paddingStart="20dp"
             android:textColor="@color/white"
@@ -85,6 +85,7 @@
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/forgotusername_input"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/forgot_title" />
 
